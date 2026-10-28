@@ -1,0 +1,86 @@
+# =====================================================================
+# Course integrity validation — runs on every push/PR to main.
+#
+# This workflow only READS and CHECKS. It never publishes anything and
+# uses no secrets: `contents: read` is its entire permission set.
+#
+#   job 1  integrity   — Markdown links + anchors, nav coverage, required
+#                        module sections, Python syntax (scripts/check_course.py)
+#   job 2  lint+tests  — repository lint standard (ruff) and the starter
+#                        project test suites
+#
+# The website build itself is validated by pages.yml on the same events;
+# the churn and capstone example suites already run in ci.yml and
+# capstone.yml, so they are not duplicated here.
+#
+# The same commands run locally before any push — see
+# docs/reference-guides/build-and-validation.md §5 ("local workflow
+# equivalent").
+# =====================================================================
+
+name: validate-course
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read            # the only permission this workflow needs
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    name: course integrity (links, sections, syntax)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+
+      # stdlib only — deliberately install-free (see the script's docstring)
+      - name: Run course integrity checks
+        run: python scripts/check_course.py
+
+  lint-and-tests:
+    name: lint and starter-project tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: |
+            examples/starter-projects/beginner/requirements.txt
+            examples/starter-projects/intermediate/requirements.txt
+            examples/starter-projects/advanced/requirements.txt
+
+      - name: Install lint tooling
+        run: python -m pip install ruff==0.15.1     # same pin as ci.yml
+
+      - name: "Ruff check (repository standard ruff.toml)"
+        run: python -m ruff check .
+
+      - name: Install starter-project dependencies (pinned)
+        run: |
+          python -m pip install -r examples/starter-projects/beginner/requirements.txt
+          python -m pip install -r examples/starter-projects/intermediate/requirements.txt
+          python -m pip install -r examples/starter-projects/advanced/requirements.txt
+
+      - name: Beginner starter tests
+        run: python -m pytest examples/starter-projects/beginner -q
+
+      - name: Intermediate starter tests
+        run: python -m pytest examples/starter-projects/intermediate -q
+
+      - name: Advanced starter tests
+        run: python -m pytest examples/starter-projects/advanced -q

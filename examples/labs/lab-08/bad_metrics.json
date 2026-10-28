@@ -1,0 +1,8 @@
+{
+  "model": "gbdt-v0-attempt",
+  "note": "below the floor on the held-out test split",
+  "roc_auc": 0.6128,
+  "recall": 0.22,
+  "drift_psi": 0.05,
+  "tests_green": true
+}

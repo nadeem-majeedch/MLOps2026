@@ -1,0 +1,108 @@
+# =====================================================================
+# CI for the capstone reference implementation (Module 17).
+#
+#   push / pull request touching the capstone  ->  lint + tests + gate
+#
+# Design notes (same rules as .github/workflows/ci.yml, explained in
+# docs/modules/12-cicd-github-actions/concepts.md):
+#   * least privilege: read the repo, nothing more
+#   * no credentials anywhere: nothing here reads a secret
+#   * `paths:` keeps the churn CI and the capstone CI independent
+#   * the gate job trains once (CPU, ~1 s) and refuses to pass if the
+#     ROC/AUC floor is not met — the capstone's automated quality gate
+# =====================================================================
+
+name: capstone-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/capstone-support/**"
+      - ".github/workflows/capstone.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "examples/capstone-support/**"
+      - ".github/workflows/capstone.yml"
+
+concurrency:
+  group: capstone-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read          # checkout only; no write access is needed
+
+jobs:
+  lint:
+    name: lint (ruff)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/capstone-support
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: examples/capstone-support/requirements-docker.txt
+      - name: Install lint tooling
+        run: python -m pip install ruff==0.15.1
+      - name: Ruff check
+        run: ruff check .
+
+  test:
+    name: tests (pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/capstone-support
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: examples/capstone-support/requirements-docker.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-docker.txt pytest==9.1.1
+      - name: Generate the synthetic dataset (deterministic)
+        run: python generate_data.py
+      - name: Run the test suite (data, leakage, model, API, release)
+        run: python -m pytest -q
+
+  gate:
+    name: ml validation (train + quality gate)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/capstone-support
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: examples/capstone-support/requirements-docker.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-docker.txt
+      - name: Generate the synthetic dataset (deterministic)
+        run: python generate_data.py
+      - name: Run the pipeline (validate -> train -> gate -> report)
+        run: python pipeline.py
+      - name: Refuse a release below the ROC/AUC floor
+        run: |
+          python - <<'PY'
+          import json, sys
+          ev = json.load(open("artifacts/evaluation.json"))
+          print(f"gate: roc_auc floor={ev['floor']} passed={ev['passed']}")
+          sys.exit(0 if ev["passed"] else 1)
+          PY
+      - name: Upload the evaluation report as an artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capstone-evaluation
+          path: examples/capstone-support/artifacts/
+          retention-days: 7

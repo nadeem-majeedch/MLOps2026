@@ -1,0 +1,37 @@
+# Module 16 — OPTIONAL autoscaling manifest (concepts demonstration).
+#
+#   kubectl apply -f examples/k8s/hpa.yaml
+#   kubectl get hpa -w
+#
+# Requires metrics-server in the cluster (kind: apply its manifests;
+# minikube: `minikube addons enable metrics-server`).
+# Lab 16 demonstrates this only if metrics-server is available — CPU-based
+# autoscaling on a toy API is a *mechanism* demo, not a capacity plan
+# (the cost/scaling plan is the independent challenge instead).
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: support-api
+  labels:
+    app: support-api
+    course.example/module: "16"
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: support-api
+  minReplicas: 2                  # never fewer than the HA floor
+  maxReplicas: 6                  # hard ceiling — this is also a cost lever
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70  # scale out above 70% of the CPU *request*,
+                                  # not of the limit — a classic exam point
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30
+    scaleDown:
+      stabilizationWindowSeconds: 300   # shed capacity slowly, avoid flapping

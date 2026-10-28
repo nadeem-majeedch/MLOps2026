@@ -1,0 +1,10 @@
+{
+  "outputs": {
+    "features.csv": "52c8486fe6161c28d1c38335ebad59a1376789feec46248c331de2c0db0f51eb",
+    "metrics.json": "aa20e0614f628764ea52bd2c0fb3655e959c4badbd714d54680efe682d2f9eee",
+    "model.joblib": "e4d006625e44968c879b9f2ee7a45665e30ac4465d646e7520dd3343b8f85bcd",
+    "prepared.csv": "72faff5e995ab657b85b5530ba3ebb94517e99c47a3e1f3fb2d1e722d795fdff"
+  },
+  "run_finished_at": "2026-10-27T06:36:36",
+  "roc_auc": 0.9246833276275249
+}

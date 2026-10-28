@@ -1,0 +1,22 @@
+{
+  "roc_auc": 0.7662,
+  "accuracy": 0.8233,
+  "precision": 0.3438,
+  "recall": 0.4342,
+  "f1": 0.3837,
+  "winner": "logistic",
+  "threshold": 0.25,
+  "n_train": 1950,
+  "n_val": 450,
+  "n_test": 600,
+  "seed": 20261026,
+  "validation_by_family": {
+    "logistic": {
+      "roc_auc": 0.7575
+    },
+    "gradient_boosting": {
+      "roc_auc": 0.7324
+    }
+  },
+  "data_sha256": "e814c91e3b33b2cd"
+}

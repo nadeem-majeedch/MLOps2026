@@ -1,0 +1,1 @@
+"""Lahore Retail Co. churn — shared example package for the MLOps course."""

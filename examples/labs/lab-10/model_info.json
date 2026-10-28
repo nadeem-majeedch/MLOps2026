@@ -1,0 +1,16 @@
+{
+  "features": [
+    "tenure_months",
+    "monthly_charges",
+    "support_calls",
+    "contract_type"
+  ],
+  "types": {
+    "tenure_months": "number 0-120",
+    "monthly_charges": "number 0-500",
+    "support_calls": "integer 0-50",
+    "contract_type": "one of monthly|one_year|two_year"
+  },
+  "target": "churned (probability of churn)",
+  "trained_on": "synthetic customers_clean.csv, 600 rows, seed 20261026"
+}

@@ -1,0 +1,34 @@
+# Capstone training configuration (Module 17).
+# Every knob that affects a run lives here — changing behaviour means editing
+# this file, not the code (Module 05's lesson).
+
+seed: 20261026
+test_size: 0.20
+val_size: 0.15          # carved from the training split: test is touched ONCE
+
+features:
+  target: at_risk
+  numeric: [attendance_rate, prior_score, lms_logins, missed_assessments, assignment_rate]
+  categorical: [device_access]        # kept as a feature AND audited for fairness
+  # Columns that must NEVER enter the feature list (leakage / identifiers).
+  forbidden: [term_end_flag, student_ref, at_risk]
+
+model:
+  family: logistic          # baseline
+  challenger: gradient_boosting
+  C: 1.0
+  max_iter: 1000
+  n_estimators: 150
+  learning_rate: 0.1
+  max_depth: 3
+  threshold: auto           # 'auto' = pick the operating point on VALIDATION
+                           # (max F1), then freeze it for the test pass
+
+quality:
+  roc_auc_floor: 0.75       # release gate (evaluation refuses below this)
+
+fairness:
+  # Audit across device_access groups. Targets are course conventions, stated
+  # so they can be challenged, not because they are universal truths.
+  max_selection_rate_gap: 0.10   # |P(flag=1|group A) - P(flag=1|group B)|
+  audit_group: device_access

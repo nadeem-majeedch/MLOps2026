@@ -1,0 +1,39 @@
+{
+  "scenario": "shifted",
+  "window_rows": 400,
+  "reference_rows": 3000,
+  "overall": "DRIFT DETECTED",
+  "strong": [
+    "attendance_rate",
+    "missed_assessments",
+    "assignment_rate"
+  ],
+  "features": [
+    {
+      "feature": "attendance_rate",
+      "psi": 0.8635,
+      "verdict": "strong"
+    },
+    {
+      "feature": "prior_score",
+      "psi": 0.01,
+      "verdict": "stable"
+    },
+    {
+      "feature": "lms_logins",
+      "psi": 0.0215,
+      "verdict": "stable"
+    },
+    {
+      "feature": "missed_assessments",
+      "psi": 1.1786,
+      "verdict": "strong"
+    },
+    {
+      "feature": "assignment_rate",
+      "psi": 0.4379,
+      "verdict": "strong"
+    }
+  ],
+  "caveat": "Inputs moved - NOT a claim about accuracy. Labels decide."
+}

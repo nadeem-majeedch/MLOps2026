@@ -1,0 +1,9 @@
+# BEGINNER starter — configuration example.
+# Every value the script needs lives here, never hard-coded in Python.
+seed: 20261101        # fixes both the data generation and the train/test split
+test_size: 0.25       # 25% held out for evaluation
+threshold: 0.5        # probability at which we predict churn = 1
+paths:
+  data: data/customers.csv
+  metrics: out/metrics.json
+  model: out/model.joblib

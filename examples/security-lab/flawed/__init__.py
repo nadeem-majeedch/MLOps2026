@@ -1,0 +1,1 @@
+"""Flawed fixture for Lab 15 (Module 15). Do not copy this pattern."""

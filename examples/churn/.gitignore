@@ -1,0 +1,32 @@
+# Generated data and artefacts — regenerate instead of committing them
+data/raw/
+data/corrupt/
+artifacts/
+mlruns/
+mlflow.db
+model.pkl
+.coverage
+.pytest_cache/
+.dvc/
+.dvcignore
+*.dvc
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# generated (Modules 08-09)
+pipe_out/
+registry_store/
+orch_out/
+monitoring/predictions.jsonl
+monitoring/reference.csv
+monitoring/*_report.*
+monitoring/decision.md

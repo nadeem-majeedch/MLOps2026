@@ -1,0 +1,30 @@
+# Training configuration — every knob that affects a run lives here.
+# Changing a model behaviour means changing this file, not editing code.
+# (Module 05)
+
+seed: 42
+test_size: 0.2
+
+features:
+  target: churn
+  numeric: [tenure_months, monthly_charges, support_tickets]
+  categorical: [contract_type]
+
+model:
+  # logistic = the baseline (usually the right first model);
+  # gradient_boosting = the challenger you must beat it with
+  family: logistic
+  C: 1.0
+  max_iter: 500
+  n_estimators: 200
+  learning_rate: 0.1
+  max_depth: 3
+
+output:
+  model_path: artifacts/model.joblib
+  metrics_path: artifacts/metrics.json
+
+quality:
+  # The pipeline's gate (Module 08): evaluate refuses a model below this floor.
+  # Calibrated below the baseline's measured ROC-AUC — see module 06 evidence.
+  roc_auc_floor: 0.70

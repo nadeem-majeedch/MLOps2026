@@ -1,0 +1,71 @@
+# Module 16 — Lab 16 deployment manifest (optional, local cluster only).
+#
+#   kubectl apply -f examples/k8s/deployment.yaml
+#   kubectl rollout status deployment/support-api
+#   kubectl set image deployment/support-api api=support-api:1.1   # rolling update
+#   kubectl rollout undo deployment/support-api                    # rollback
+#
+# Every field is explained in docs/modules/16-cloud-kubernetes-scaling/concepts.md.
+# The image must exist locally (kind minikube load, or build inside the
+# cluster's docker) — imagePullPolicy: IfNotPresent/Never keeps it offline.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: support-api
+  labels:
+    app: support-api
+    course.example/module: "16"
+spec:
+  replicas: 2                      # self-healing and rolling updates need > 1
+  revisionHistoryLimit: 3          # enough history to roll back to
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0            # never drop below the replica count
+      maxSurge: 1                  # one new pod at a time
+  selector:
+    matchLabels:
+      app: support-api
+  template:
+    metadata:
+      labels:
+        app: support-api
+    spec:
+      containers:
+        - name: api
+          image: support-api:1.0   # the Module 11 / capstone image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            # Secrets are injected here (or via kubectl create secret),
+            # never baked into the image or the manifest (Module 15).
+            - name: HOST
+              value: "0.0.0.0"
+            - name: PORT
+              value: "8000"
+            # - name: SERVICE_API_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: support-api-secrets
+            #       key: service-api-key
+          resources:
+            requests:
+              cpu: 100m            # scheduling budget: how much is reserved
+              memory: 256Mi
+            limits:
+              cpu: 500m            # throttling ceiling
+              memory: 512Mi        # OOMKill boundary — the self-heal trigger in Lab 16
+          readinessProbe:          # "can it serve traffic yet?"
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:           # "is it wedged? restart it"
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            failureThreshold: 3

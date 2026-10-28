@@ -1,0 +1,6 @@
+# INTERMEDIATE starter — configuration example (every tunable lives here).
+seed: 20261102          # data generation + train/test split
+rows: 800               # synthetic rows to generate
+test_size: 0.25         # held-out fraction for evaluation
+threshold: 0.5          # probability at which churn is predicted
+output_dir: out         # where the manifest, metrics and model land

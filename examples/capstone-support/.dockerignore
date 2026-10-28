@@ -1,0 +1,31 @@
+# Build context = this folder only. Everything listed here is excluded so the
+# context stays small and generated state can never enter the image.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.log
+
+# Generated at build or run time — never copied in
+data/
+monitoring_out/
+releases/
+release.json
+runs.jsonl
+report.md
+pipeline_state.json
+svc.log
+svc.pid
+
+# Not needed to serve predictions
+tests/
+docs/
+*.ipynb
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

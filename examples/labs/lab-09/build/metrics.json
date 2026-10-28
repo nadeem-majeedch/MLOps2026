@@ -1,0 +1,5 @@
+{
+  "roc_auc": 0.8874,
+  "rows": 600,
+  "model": "logreg-baseline"
+}

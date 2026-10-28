@@ -1,0 +1,25 @@
+# Ignore generated and local-only files (course website build output and Python noise)
+/site/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+
+# Session / installer logs (build.log, pip-*.log, …)
+*.log
+
+# Generated model binaries — never commit them; regenerate with the
+# documented commands (see datasets/README.md §5)
+*.joblib
+
+# Generated run state
+runs.jsonl
+
+# Starter-project generated state (regenerate with the commands in each README)
+examples/starter-projects/*/out/
+examples/starter-projects/*/artifacts/
+examples/starter-projects/*/versions/
+examples/starter-projects/*/logs/
+examples/starter-projects/*/registry.json

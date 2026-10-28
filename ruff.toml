@@ -1,0 +1,25 @@
+# Lint ruleset for the whole repository — the course's defined standard.
+#
+# Why this file exists: CI pins ruff==0.15.1 (see .github/workflows/*.yml) and
+# enforces its default rule set. Newer ruff releases expand the defaults, which
+# made local runs disagree with CI. This config pins the standard explicitly so
+# every machine lints the same way — the rules the course actually teaches and
+# enforces: pycodestyle error rules (E4/E7/E9) + pyflakes (F).
+#
+# Run from anywhere in the repo:  ruff check examples/churn
+
+target-version = "py310"
+line-length = 100
+extend-exclude = [
+    # Deliberately-bad teaching material: students refactor this in Lab 03,
+    # and the course does not lint it (its messiness is the lesson).
+    "examples/churn/legacy",
+    # Generated build output, never source.
+    "site",
+]
+
+[lint]
+select = ["E4", "E7", "E9", "F"]
+
+[lint.per-file-ignores]
+# Notebooks under legacy/ are excluded above; nothing else needs overrides.

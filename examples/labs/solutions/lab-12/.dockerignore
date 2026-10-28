@@ -1,0 +1,32 @@
+# Build context = the folder holding the service. Excluded so the context
+# stays small and no generated state or secrets can enter the image.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+*.log
+
+# Derived/generated — never copied in
+data/
+monitoring_out/
+runs.jsonl
+*.jsonl
+
+# Not needed to serve predictions
+tests/
+test_*.py
+docs/
+*.ipynb
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# NOTE: model.joblib and model_info.json are deliberately NOT ignored —
+# the image must serve them. Verify with:
+#   docker build --no-cache -t churn-api:lab12-check .   (Path A only)

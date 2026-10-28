@@ -1,0 +1,29 @@
+# Build context = this folder only. Everything listed here is excluded so the
+# context stays small and secrets/derived files can never enter the image.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+*.log
+
+# Generated at build time or run time — never copied in
+pipe_out/
+registry_store/
+data/
+site/
+# (artifacts/ IS copied in on purpose: it is the model the image serves)
+
+# Not needed to serve predictions
+legacy/
+experiments/
+tests/
+docs/
+*.ipynb
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1 @@
+{"error":"invalid request","detail":["records.0.tenure_months: Input should be greater than or equal to 1","records.0.monthly_charges: Input should be greater than 0","records.0.contract_type: Input should be 'monthly', 'one_year' or 'two_year'"]}

@@ -1,0 +1,5 @@
+# Dependencies for building the MLOps course website (MkDocs + Material theme).
+# Install with:  python -m pip install -r requirements-docs.txt
+# See docs/reference-guides/local-preview.md for the full local workflow.
+mkdocs>=1.6,<2.0
+mkdocs-material>=9.5,<10.0

@@ -1,0 +1,10 @@
+{
+  "name": "good candidate",
+  "note": "every criterion genuinely met — the control case",
+  "roc_auc": 0.802,
+  "min_recall_check": 0.30,
+  "recall": 0.44,
+  "drift_psi": 0.06,
+  "tests_green": true,
+  "data_contract_ok": true
+}

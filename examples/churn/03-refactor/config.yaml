@@ -1,0 +1,6 @@
+# Every value the legacy notebook hard-coded in cells, in one place.
+# Values match legacy/analysis.ipynb exactly so the numbers can be compared.
+seed: 7
+test_size: 0.25
+n_estimators: 500
+features: [tenure_months, monthly_charges, support_tickets, contract_num]

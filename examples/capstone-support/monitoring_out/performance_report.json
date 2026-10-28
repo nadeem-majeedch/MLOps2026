@@ -1,0 +1,11 @@
+{
+  "reference_roc_auc": 0.7662,
+  "floor": 0.75,
+  "scenarios": {
+    "shifted": {
+      "roc_auc": 0.7712,
+      "drop_vs_reference": -0.005,
+      "degraded": false
+    }
+  }
+}

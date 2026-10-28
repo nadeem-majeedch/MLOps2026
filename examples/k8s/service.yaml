@@ -1,0 +1,26 @@
+# Module 16 — Lab 16 service manifest (optional, local cluster only).
+#
+#   kubectl apply -f examples/k8s/service.yaml
+#   kubectl port-forward svc/support-api 8000:8000
+#   curl http://127.0.0.1:8000/health
+#
+# A Service gives the two-replica Deployment ONE stable address: pods are
+# disposable, the Service name is not. Load-balancing across replicas is
+# built in (kube-proxy + iptables/IPVS).
+apiVersion: v1
+kind: Service
+metadata:
+  name: support-api
+  labels:
+    app: support-api
+    course.example/module: "16"
+spec:
+  type: ClusterIP                  # cluster-internal; local lab reaches it
+                                   # via port-forward (no cloud load balancer)
+  selector:
+    app: support-api               # routes to every ready pod with this label
+  ports:
+    - name: http
+      port: 8000                   # what clients inside the cluster call
+      targetPort: 8000             # what the container listens on
+      protocol: TCP

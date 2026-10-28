@@ -1,0 +1,14 @@
+# LAB 12 — pinned dependencies for the container image.
+# Exact pins (not ranges) so the image is rebuildable byte-for-byte later.
+# Same versions as examples/churn/requirements-docker.txt — verified present
+# in the authoring environment (Python 3.14).
+fastapi==0.162.0
+starlette==1.10.0
+uvicorn==0.54.0
+pydantic==2.13.5
+scikit-learn==1.9.1
+pandas==3.0.6
+numpy==2.5.3
+PyYAML==6.0.3
+joblib==1.6.0
+httpx==0.28.1

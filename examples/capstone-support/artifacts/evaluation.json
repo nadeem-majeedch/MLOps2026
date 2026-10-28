@@ -1,0 +1,6 @@
+{
+  "roc_auc": 0.7662,
+  "floor": 0.75,
+  "passed": true,
+  "by": "roc_auc >= floor on the single held-out test split"
+}

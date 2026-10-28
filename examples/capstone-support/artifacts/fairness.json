@@ -1,0 +1,11 @@
+{
+  "group": "device_access",
+  "selection_rate_by_group": {
+    "0": 0.2606,
+    "1": 0.1288
+  },
+  "selection_rate_gap": 0.1318,
+  "max_allowed_gap": 0.1,
+  "within_target": false,
+  "caveat": "Selection-rate parity is ONE fairness definition; a gap over target is a prompt to investigate, not proof of bias."
+}

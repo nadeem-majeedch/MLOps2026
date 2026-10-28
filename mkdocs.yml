@@ -1,0 +1,184 @@
+# MkDocs configuration for the MLOps course website.
+# Source Markdown lives in docs/; build output goes to site/ (excluded from Git).
+# See docs/reference-guides/website-development.md before editing.
+
+site_name: MLOps — A Self-Study Course
+site_description: >-
+  A complete beginner-to-advanced, self-study Machine Learning Operations (MLOps)
+  course for university students: 17 modules, guided labs, mini-projects, capstone.
+site_author: Engr. Dr. Muhammad Nadeem Majeed
+site_url: https://nadeem-majeedch.github.io/MLOps/
+
+repo_url: https://github.com/nadeem-majeedch/MLOps
+repo_name: nadeem-majeedch/MLOps
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.footer      # previous / next page links
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/nadeem-majeedch/MLOps
+      name: MLOps repository on GitHub
+
+# Every page must appear here: if a page is missing from nav it is invisible
+# to students. Sections mirror how a student thinks about the course.
+nav:
+  - Home: index.md
+  - Start Here:
+      - First-day guide: start-here/index.md
+      - Progress checklist: start-here/progress-checklist.md
+      - Prerequisites: prerequisites/index.md
+      - Learning roadmap: learning-roadmap/index.md
+  - Foundations:
+      - "01 · Introduction to MLOps and the ML lifecycle": modules/01-introduction-mlops-lifecycle/index.md
+      - "02 · Python, Git, CLI, and environments": modules/02-python-git-cli-environments/index.md
+      - "03 · ML project structure and technical debt": modules/03-ml-project-technical-debt/index.md
+      - "04 · Data quality, validation, and versioning": modules/04-data-quality-validation-versioning/index.md
+      - "05 · Reproducible training and pipelines": modules/05-reproducible-training-pipelines/index.md
+  - Intermediate:
+      - "06 · Experiment tracking with MLflow": modules/06-experiment-tracking-mlflow/index.md
+      - "07 · Testing for ML systems": modules/07-testing-for-ml/index.md
+      - "08 · Pipeline automation and dependencies": modules/08-pipeline-automation/index.md
+      - "09 · Model artifacts and registries": modules/09-model-artifacts-registry/index.md
+      - "10 · Model serving with FastAPI": modules/10-model-serving-fastapi/index.md
+      - "11 · Docker images and containers": modules/11-docker-containers/index.md
+      - "12 · CI/CD with GitHub Actions": modules/12-cicd-github-actions/index.md
+  - Advanced:
+      - "13 · Orchestration and scheduled pipelines": modules/13-orchestration-scheduled-pipelines/index.md
+      - "14 · Monitoring, drift, and retraining": modules/14-monitoring-drift-retraining/index.md
+      - "15 · Security, privacy, and governance": modules/15-security-privacy-governance/index.md
+      - "16 · Cloud, Kubernetes, scaling, reliability": modules/16-cloud-kubernetes-scaling/index.md
+      - "17 · Capstone: the entire lifecycle": modules/17-capstone/index.md
+  - Labs:
+      - Labs overview: labs/index.md
+      - "01 · Reproducibility detective": labs/lab-01-reproducibility-detective.md
+      - "02 · Untangle the notebook": labs/lab-02-untangle-the-notebook.md
+      - "03 · Gate the dirty extract": labs/lab-03-gate-the-dirty-extract.md
+      - "04 · Version it and prove it": labs/lab-04-version-it-and-prove-it.md
+      - "05 · Deterministic by construction": labs/lab-05-deterministic-by-construction.md
+      - "06 · Ten runs, one decision": labs/lab-06-ten-runs-one-decision.md
+      - "07 · Catch the leakage": labs/lab-07-catch-the-leakage.md
+      - "08 · The gate that must refuse": labs/lab-08-the-gate-that-must-refuse.md
+      - "09 · Staged, verified, released": labs/lab-09-staged-verified-released.md
+      - "10 · Serve it": labs/lab-10-serve-it.md
+      - "11 · Malformed-requests autopsy": labs/lab-11-malformed-requests-autopsy.md
+      - "12 · Ship the image": labs/lab-12-ship-the-image.md
+      - "13 · The dependency time bomb": labs/lab-13-dependency-time-bomb.md
+      - "14 · The machine checks your work": labs/lab-14-the-machine-checks-your-work.md
+      - "15 · Nothing ships unchecked": labs/lab-15-nothing-ships-unchecked.md
+      - "16 · A pipeline that runs itself": labs/lab-16-a-pipeline-that-runs-itself.md
+      - "17 · Read the drift, not the chart": labs/lab-17-read-the-drift-not-the-chart.md
+      - "18 · Rollback or ride it out": labs/lab-18-rollback-or-ride-it-out.md
+      - "19 · Deployment security review": labs/lab-19-deployment-security-review.md
+      - "20 · Incident day": labs/lab-20-incident-day.md
+  - Projects:
+      - Projects overview: projects/index.md
+      - Capstone specification: projects/capstone-specification.md
+      - Capstone task checklist: projects/capstone-checklist.md
+      - Capstone rubric worksheet: projects/capstone-rubric.md
+      - Capstone self-assessment: projects/capstone-self-assessment.md
+  - Assessments:
+      - Overview: assessments/index.md
+      - Question banks:
+          - Overview: assessments/question-banks/index.md
+          - "01 · MLOps fundamentals": assessments/question-banks/q01-fundamentals.md
+          - "02 · Reproducibility & data versioning": assessments/question-banks/q02-reproducibility-data-versioning.md
+          - "03 · Experiment tracking & evaluation": assessments/question-banks/q03-experiment-tracking-evaluation.md
+          - "04 · Testing & automation": assessments/question-banks/q04-testing-automation.md
+          - "05 · APIs & containers": assessments/question-banks/q05-apis-containers.md
+          - "06 · CI/CD & orchestration": assessments/question-banks/q06-cicd-orchestration.md
+          - "07 · Monitoring & drift": assessments/question-banks/q07-monitoring-drift.md
+          - "08 · Security & governance": assessments/question-banks/q08-security-governance.md
+          - "09 · Cloud & advanced operations": assessments/question-banks/q09-cloud-advanced-operations.md
+      - Module practice: assessments/module-practice.md
+      - Mini-project specifications: assessments/mini-projects.md
+      - Capstone assessment: assessments/capstone-assessment.md
+      - Rubrics & self-assessment: assessments/rubrics-checklists.md
+      - Final review & exam prep: assessments/final-review.md
+      - "🔑 Solutions · question banks": assessments/keys/question-banks-KEY.md
+      - "🔑 Solutions · mini-projects": assessments/keys/mini-projects-KEY.md
+  - Reference:
+      - Glossary: glossary/index.md
+      - Troubleshooting: troubleshooting/index.md
+      - Learning resources: resources/index.md
+      - Course overview: syllabus/course-overview.md
+      - Detailed syllabus: syllabus/detailed-syllabus.md
+      - Learning outcomes: syllabus/learning-outcomes.md
+      - Tool selection guide: syllabus/tool-selection-guide.md
+      - Assessment framework: syllabus/assessment-framework.md
+      - Course project map: syllabus/course-project-map.md
+      - Lab template: TEMPLATES/LAB-TEMPLATE.md
+      - Assessment template: TEMPLATES/ASSESSMENT-TEMPLATE.md
+      - "Template · Problem statement": TEMPLATES/PROBLEM-STATEMENT-TEMPLATE.md
+      - "Template · Architecture diagram": TEMPLATES/ARCHITECTURE-DIAGRAM-TEMPLATE.md
+      - "Template · Experiment record": TEMPLATES/EXPERIMENT-RECORD-TEMPLATE.md
+      - "Template · Test evidence": TEMPLATES/TEST-EVIDENCE-TEMPLATE.md
+      - "Template · Deployment checklist": TEMPLATES/DEPLOYMENT-CHECKLIST-TEMPLATE.md
+      - "Template · Monitoring report": TEMPLATES/MONITORING-REPORT-TEMPLATE.md
+      - "Template · Final project report": TEMPLATES/FINAL-PROJECT-REPORT-TEMPLATE.md
+      - Website development: reference-guides/website-development.md
+      - Development setup: reference-guides/development-setup.md
+      - Local preview: reference-guides/local-preview.md
+      - Build and validation: reference-guides/build-and-validation.md
+      - GitHub Pages deployment: reference-guides/github-pages-deployment.md
+      - Maintenance: reference-guides/maintenance.md
+      - Troubleshooting builds: reference-guides/troubleshooting-builds.md
+      - Final quality report: reference-guides/final-quality-report.md
+      - Known limitations: reference-guides/known-limitations.md
+      - Pre-publication checklist: reference-guides/pre-publication-checklist.md
+  - About:
+      - About and credits: about/index.md
+      - Course standards: COURSE-STANDARDS.md
+      - Build roadmap: ROADMAP.md

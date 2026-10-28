@@ -1,0 +1,11 @@
+# ADVANCED starter — configuration example.
+# Copy to config.yaml and adjust; thresholds are conventions you must
+# justify in your README, not laws of nature (see monitor.py's docstring).
+monitoring:
+  reference: data/reference.csv      # window the model was validated on
+  log: logs/predictions.jsonl        # what the service actually scored
+  psi_moderate: 0.10                 # above this: investigate
+  psi_strong: 0.20                   # above this: strong drift signal
+service:
+  host: 127.0.0.1                    # env HOST overrides
+  port: 8000                         # env PORT overrides

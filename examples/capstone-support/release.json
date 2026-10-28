@@ -1,0 +1,39 @@
+{
+  "releases": {
+    "r001": {
+      "id": "r001",
+      "at": "2026-10-25T22:43:48+00:00",
+      "note": "capstone v1",
+      "by": "student",
+      "gate": {
+        "roc_auc": 0.7662,
+        "floor": 0.75,
+        "passed": true,
+        "by": "roc_auc >= floor on the single held-out test split"
+      },
+      "fairness_within_target": false,
+      "fairness_gap": 0.1318,
+      "roc_auc": 0.7662,
+      "threshold": 0.25,
+      "data_sha256": "e814c91e3b33b2cd",
+      "model_sha256": "e401cfa42d650b0b"
+    }
+  },
+  "current": "r001",
+  "previous": null,
+  "history": [
+    {
+      "at": "2026-10-25T22:43:48+00:00",
+      "action": "register",
+      "release": "r001",
+      "by": "student"
+    },
+    {
+      "at": "2026-10-25T22:43:48+00:00",
+      "action": "promote",
+      "release": "r001",
+      "by": "student",
+      "ack": "gap documented in risk register"
+    }
+  ]
+}

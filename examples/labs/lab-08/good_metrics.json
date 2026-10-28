@@ -1,0 +1,8 @@
+{
+  "model": "logreg-baseline",
+  "note": "clears every configured criterion",
+  "roc_auc": 0.8021,
+  "recall": 0.44,
+  "drift_psi": 0.06,
+  "tests_green": true
+}

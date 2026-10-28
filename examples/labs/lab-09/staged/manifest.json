@@ -1,0 +1,22 @@
+{
+  "candidates": {
+    "rc-1": {
+      "staged_at": "2026-10-26T00:48:42+00:00",
+      "files": {
+        "config.yaml": {
+          "exists": true,
+          "size": 37
+        },
+        "metrics.json": {
+          "exists": true,
+          "size": 74
+        },
+        "model.joblib": {
+          "exists": true,
+          "size": 12561
+        }
+      },
+      "state": "staged"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "roc_auc_floor": 0.75,
+  "min_recall": 0.30,
+  "max_drift_psi": 0.20,
+  "require_tests_green": true,
+  "note": "the pipeline's definition of 'good enough' — every key matters"
+}

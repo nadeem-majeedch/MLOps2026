@@ -1,0 +1,8 @@
+{
+  "min_roc_auc": 0.75,
+  "min_recall": 0.30,
+  "max_drift_psi": 0.20,
+  "tests_green_required": true,
+  "data_contract_required": true,
+  "note": "release criteria for the subscription-risk model; ALL must hold"
+}
